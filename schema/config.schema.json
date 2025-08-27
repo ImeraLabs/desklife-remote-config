@@ -130,7 +130,7 @@
                                     },
                                     "prolonged_stand_warn_min": {
                                         "type": "integer",
-                                        "minimum": 30
+                                        "minimum": 25
                                     }
                                 }
                             },
