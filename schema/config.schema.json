@@ -1,0 +1,229 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "DeskLife Remote Config",
+    "type": "object",
+    "required": [
+        "schema_version",
+        "config_version",
+        "env",
+        "features",
+        "protocols",
+        "score"
+    ],
+    "properties": {
+        "schema_version": {
+            "type": "integer",
+            "minimum": 1
+        },
+        "config_version": {
+            "type": "string"
+        },
+        "env": {
+            "enum": [
+                "prod",
+                "staging",
+                "dev"
+            ]
+        },
+        "app_version_gate": {
+            "type": "object",
+            "properties": {
+                "min": {
+                    "type": "string"
+                },
+                "max": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "min",
+                "max"
+            ]
+        },
+        "features": {
+            "type": "object",
+            "properties": {
+                "score_enabled": {
+                    "type": "boolean"
+                },
+                "toggle_hardware_stub": {
+                    "type": "boolean"
+                },
+                "look_away_enabled": {
+                    "type": "boolean"
+                },
+                "metabolic_preset_enabled": {
+                    "type": "boolean"
+                },
+                "focus_blocks_enabled": {
+                    "type": "boolean"
+                }
+            },
+            "additionalProperties": true
+        },
+        "protocols": {
+            "type": "object",
+            "required": [
+                "default_id",
+                "items"
+            ],
+            "properties": {
+                "default_id": {
+                    "type": "string"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": [
+                            "id",
+                            "cycle_minutes",
+                            "phases"
+                        ],
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "title": {
+                                "type": "string"
+                            },
+                            "cycle_minutes": {
+                                "type": "integer",
+                                "minimum": 5
+                            },
+                            "phases": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "required": [
+                                        "kind",
+                                        "minutes"
+                                    ],
+                                    "properties": {
+                                        "kind": {
+                                            "enum": [
+                                                "sit",
+                                                "stand",
+                                                "move"
+                                            ]
+                                        },
+                                        "minutes": {
+                                            "type": "integer",
+                                            "minimum": 1
+                                        },
+                                        "recipe_set": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "minItems": 1
+                            },
+                            "guardrails": {
+                                "type": "object",
+                                "properties": {
+                                    "max_sit_bout_min": {
+                                        "type": "integer",
+                                        "minimum": 10
+                                    },
+                                    "prolonged_stand_warn_min": {
+                                        "type": "integer",
+                                        "minimum": 30
+                                    }
+                                }
+                            },
+                            "meeting_aware": {
+                                "type": "object",
+                                "properties": {
+                                    "edge_buffer_min": {
+                                        "type": "integer",
+                                        "minimum": 0
+                                    },
+                                    "normalize_adherence": {
+                                        "type": "boolean"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "score": {
+            "type": "object",
+            "required": [
+                "bands",
+                "pqi_gating",
+                "kill_switch"
+            ],
+            "properties": {
+                "bands": {
+                    "type": "object",
+                    "properties": {
+                        "red": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            },
+                            "minItems": 2,
+                            "maxItems": 2
+                        },
+                        "amber": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            },
+                            "minItems": 2,
+                            "maxItems": 2
+                        },
+                        "green": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            },
+                            "minItems": 2,
+                            "maxItems": 2
+                        },
+                        "excellent": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            },
+                            "minItems": 2,
+                            "maxItems": 2
+                        }
+                    },
+                    "required": [
+                        "red",
+                        "amber",
+                        "green",
+                        "excellent"
+                    ]
+                },
+                "pqi_gating": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "low_threshold": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 1
+                        }
+                    },
+                    "required": [
+                        "enabled",
+                        "low_threshold"
+                    ]
+                },
+                "kill_switch": {
+                    "type": "boolean"
+                }
+            }
+        }
+    },
+    "additionalProperties": true
+}

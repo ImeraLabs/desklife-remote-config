@@ -1,0 +1,88 @@
+{
+    "schema_version": 1,
+    "config_version": "2025-08-27T00:00:00Z",
+    "env": "prod",
+    "app_version_gate": {
+        "min": "1.0.0",
+        "max": null
+    },
+    "features": {
+        "score_enabled": true,
+        "toggle_hardware_stub": true,
+        "look_away_enabled": false,
+        "metabolic_preset_enabled": false,
+        "focus_blocks_enabled": true
+    },
+    "protocols": {
+        "default_id": "20-8-2",
+        "items": [
+            {
+                "id": "20-8-2",
+                "title": "20–8–2 (Ergonomics default)",
+                "cycle_minutes": 30,
+                "phases": [
+                    {
+                        "kind": "sit",
+                        "minutes": 20
+                    },
+                    {
+                        "kind": "stand",
+                        "minutes": 8
+                    },
+                    {
+                        "kind": "move",
+                        "minutes": 2,
+                        "recipe_set": "light-walk"
+                    }
+                ],
+                "guardrails": {
+                    "max_sit_bout_min": 30,
+                    "prolonged_stand_warn_min": 60
+                },
+                "meeting_aware": {
+                    "edge_buffer_min": 5,
+                    "normalize_adherence": true
+                },
+                "metadata": {
+                    "evidence": [
+                        "Cornell ergonomics guidance",
+                        "Office-worker sitting/light-activity statements"
+                    ]
+                }
+            }
+        ]
+    },
+    "score": {
+        "bands": {
+            "red": [
+                0,
+                59
+            ],
+            "amber": [
+                60,
+                74
+            ],
+            "green": [
+                75,
+                89
+            ],
+            "excellent": [
+                90,
+                100
+            ]
+        },
+        "pqi_gating": {
+            "enabled": true,
+            "low_threshold": 0.7
+        },
+        "kill_switch": false
+    },
+    "scheduling": {
+        "prompt_jitter_window_sec": 60,
+        "quiet_hours_default": null
+    },
+    "telemetry": {
+        "opt_in_default": false
+    },
+    "updated_at": "2025-08-27T00:00:00Z"
+}
