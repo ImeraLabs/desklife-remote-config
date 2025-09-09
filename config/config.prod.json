@@ -36,11 +36,11 @@
                     }
                 ],
                 "guardrails": {
-                    "max_sit_bout_min": 30,
+                    "max_sit_bout_min": 120,
                     "prolonged_stand_warn_min": 60
                 },
                 "meeting_aware": {
-                    "edge_buffer_min": 5,
+                    "edge_buffer_min": 10,
                     "normalize_adherence": true
                 },
                 "metadata": {
